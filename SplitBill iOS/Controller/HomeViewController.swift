@@ -22,12 +22,22 @@ class HomeViewController: UIViewController {
     
     @IBAction func onPressCalculate(_ sender: UIButton) {
         splitCalc.amount = Float(txtFieldAmount.text ?? "0.00")
-        splitCalc.numOfPerson = Int(txtSplitNumber.text ?? "0")
-        print("\(splitCalc.amount!) \(splitCalc.numOfPerson!)")
+        splitCalc.numOfPerson = Int(txtSplitNumber.text ?? "1")
+        splitCalc.calculateSplitAmount()
+        
+        performSegue(withIdentifier: "goToResults", sender: self)
     }
     
     @IBAction func onPressStepper(_ sender: UIStepper) {
         txtSplitNumber.text = String(format: "%.0f", sender.value)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResults"{
+            let destinationVC = segue.destination as! ResultViewController
+            destinationVC.splitAmount = splitCalc.splitAmount
+            destinationVC.splitNumber = splitCalc.numOfPerson
+        }
     }
 }
 

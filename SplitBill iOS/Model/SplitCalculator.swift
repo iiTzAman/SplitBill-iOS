@@ -10,4 +10,11 @@ import UIKit
 struct SplitCalculator{
     var amount: Float?
     var numOfPerson: Int?
+    var splitAmount: Float?
+    
+    mutating func calculateSplitAmount() {
+        if let amt = amount, let noPerson = numOfPerson{
+            splitAmount = (amt/Float(noPerson))
+        }
+    }
 }
